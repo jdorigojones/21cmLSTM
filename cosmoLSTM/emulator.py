@@ -6,6 +6,8 @@ import numpy as np
 from cosmoLSTM import __path__
 import cosmoLSTM.preprocess as pp
 
+PATH = __path__[0] + "/"
+
 def model(dim_input, num_params, dim_output, activation_func="tanh", name=None):
     """
     Generate a keras Sequential model (i.e., linear stack of two LSTM layers and one Dense layer)
