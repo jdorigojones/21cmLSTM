@@ -10,12 +10,13 @@ Please feel free to email me at johnny.dorigojones@colorado.edu about any questi
 Dependencies: python>=3.6, tensorflow>=2.5, h5py, jupyter, matplotlib, numpy, tqdm
 
 It is recommended to install 21cmLSTM in a virtual environment with all required dependencies:
-
+```
 git clone https://github.com/johnnydorigojones/21cmLSTM.git
 cd 21cmLSTM
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install .
+```
 
 # Contributions
 Main authors: Johnny Dorigo Jones and Shah Bahauddin
