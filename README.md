@@ -19,4 +19,4 @@ python -m pip install .
 ```
 
 # Contributions
-Main authors: Johnny Dorigo Jones and Shah Bahauddin
+Authors: Johnny Dorigo Jones and Shah Bahauddin
