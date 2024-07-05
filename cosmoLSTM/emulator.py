@@ -138,7 +138,7 @@ def error(true_signal, emulated_signal, relative=True, nu=None, flow=None, fhigh
 
 # default parameters
 z_list = np.linspace(5, 50, 451) # list of redshifts for 21cmGEM signals; equiv to np.arange(5, 50.1, 0.1)
-data = 'dataset_21cmVAE.h5'
+data = 'dataset_21cmLSTM.h5'
 with h5py.File(data, "r") as f:
     print("Keys: %s" % f.keys())
     par_train = np.asarray(f['par_train'])[()]
