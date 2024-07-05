@@ -11,7 +11,7 @@ Dependencies: python>=3.6, tensorflow>=2.5, h5py, jupyter, matplotlib, numpy, tq
 
 It is recommended to install 21cmLSTM in a virtual environment with all required dependencies:
 ```
-git clone https://github.com/johnnydorigojones/21cmLSTM.git
+git clone https://github.com/johnnydorigojones/21cmLSTM
 cd 21cmLSTM
 python -m venv .venv
 source .venv/bin/activate
