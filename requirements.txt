@@ -1,0 +1,6 @@
+jupyter
+h5py
+matplotlib
+numpy
+tensorflow
+tqdm
