@@ -7,7 +7,6 @@ setup(
   author='Johnny Dorigo Jones',
   author_email='johnny.dorigojones@colorado.edu',
   description='21cmLSTM - a memory-based emulator of the 21-cm global signal with unprecedented accuracy and speed',
-  long_description=readme(),
   packages=find_packages(),    
   install_requires=open('requirements.txt').read().splitlines(),
   license='MIT',
