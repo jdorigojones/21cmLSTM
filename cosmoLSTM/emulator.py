@@ -304,7 +304,7 @@ class Emulate:
         train_loss = hist.history["loss"]
         val_loss = hist.history["val_loss"]
 
-        # Save the entire model as a `.keras` zip archive.
+        # Save the entire model (architecture, weights, and training configuration) in H5 format
         self.emulator.save('models/emulator.h5')
 
         return train_loss, val_loss
