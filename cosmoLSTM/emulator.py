@@ -269,10 +269,10 @@ class Emulate:
 
         Parameters
         ----------
-        epochs_1 : int
-            Number of epochs to train for with batch size of 1
-        epochs_10 : int
-            Number of epochs to train for with batch size of 10
+        epochs : int
+            Number of epochs to train for the given batch_size
+        batch_size : int
+            Number of signals in each minibatch trained on
         callbacks : list of tf.keras.callbacks.Callback
             Callbacks to pass to the training loop. Default : []
         verbose : 0, 1, 2
