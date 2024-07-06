@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
 import numpy as np
 
 def preproc_signals(unproc_signals: np.ndarray, train_signals: np.ndarray) -> np.ndarray:
