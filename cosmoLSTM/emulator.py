@@ -8,6 +8,19 @@ import cosmoLSTM.preprocess as pp
 
 PATH = __path__[0] + "/"
 
+# default parameters
+z_list = np.linspace(5, 50, 451) # list of redshifts for 21cmGEM signals; equiv to np.arange(5, 50.1, 0.1)
+data = 'dataset_21cmLSTM.h5'
+with h5py.File(data, "r") as f:
+    print("Keys: %s" % f.keys())
+    par_train = np.asarray(f['par_train'])[()]
+    par_val = np.asarray(f['par_val'])[()]
+    par_test = np.asarray(f['par_test'])[()]
+    signal_train = np.asarray(f['signal_train'])[()]
+    signal_val = np.asarray(f['signal_val'])[()]
+    signal_test = np.asarray(f['signal_test'])[()]
+f.close()
+
 def model(dim_input, num_params, dim_output, activation_func="tanh", name=None):
     """
     Generate a keras Sequential model (i.e., linear stack of two LSTM layers and one Dense layer)
@@ -131,19 +144,6 @@ def error(true_signal, emulated_signal, relative=True, nu=None, flow=None, fhigh
         err /= np.max(np.abs(true_signal), axis=1)
         err *= 100  # %
     return err
-
-# default parameters
-z_list = np.linspace(5, 50, 451) # list of redshifts for 21cmGEM signals; equiv to np.arange(5, 50.1, 0.1)
-data = 'dataset_21cmLSTM.h5'
-with h5py.File(data, "r") as f:
-    print("Keys: %s" % f.keys())
-    par_train = np.asarray(f['par_train'])[()]
-    par_val = np.asarray(f['par_val'])[()]
-    par_test = np.asarray(f['par_test'])[()]
-    signal_train = np.asarray(f['signal_train'])[()]
-    signal_val = np.asarray(f['signal_val'])[()]
-    signal_test = np.asarray(f['signal_test'])[()]
-f.close()
 
 class Emulate:
     def __init__(
