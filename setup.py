@@ -16,5 +16,5 @@ setup(
                'License :: OSI Approved :: MIT License',
                'Programming Language :: Python :: 3',
                'Topic :: Scientific/Engineering :: Astronomy',
-               'Topic :: Scientific/Engineering :: Physics',
+               'Topic :: Scientific/Engineering :: Physics'],
 )
