@@ -249,7 +249,8 @@ class Emulate:
 
     def load_model(self, model_path=PATH + "models/emulator.h5"):
         """
-        Load a saved model. The default parameter is the path to the best trial of 21cmLSTM described in the paper.
+        Load a saved model (i.e., trained instance of 21cmLSTM).
+        The default is the path to the best trial described in the paper.
 
         Parameters
         ----------
@@ -311,20 +312,17 @@ class Emulate:
 
     def predict(self, params):
         """
-        Predict global 21 signal(s) from input physical parameters.
+        Predict global 21 cm signal(s) from input physical parameters using trained instance of 21cmLSTM
 
         Parameters
         ----------
         params : np.ndarray
-            The values of the physical parameters. Must be in the order
-            given by the attrbiute par_labels. To predict a set of global
-            signals, input a 2d-array where each row correspond to a different
-            set of parameters.
+            The values of the physical parameters in the order of par_labels. Input 2D array to predict a set of signals
 
         Returns
         -------
-        pred : np.ndarray
-           The predicted global signal(s)
+        emulated_signals : np.ndarray
+           The predicted global 21 cm signal(s)
 
         """
         proc_params = pp.preproc_params(params, self.par_train)
@@ -337,7 +335,7 @@ class Emulate:
 
     def test_error(self, relative=True, nu_low=None, nu_high=None):
         """
-        Compute the error of the emulator for each signal in the test set.
+        Compute the rms error for trained instance of 21cmLSTM evaluated on test set
 
         Parameters
         ----------
