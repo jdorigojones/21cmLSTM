@@ -72,7 +72,7 @@ def redshift(nu):
         The corresponding redshift or array of redshifts
 
     """
-    z = (vr/v)-1
+    z = (vr/nu)-1
     return z
 
 def error(true_signal, emulated_signal, relative=True, nu=None, flow=None, fhigh=None):
