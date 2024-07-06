@@ -7,7 +7,7 @@
 Please feel free to email me at johnny.dorigojones@colorado.edu about any questions, comments, improvements, or contributions (or open an issue, make pull request). Please reference Dorigo Jones et al. 2024 and provide a link to this GitHub repository if you utilize this work or emulator in any way.
 
 # Set-up
-It is recommended to install 21cmLSTM in a virtual environment with all required dependencies: python>=3.6, tensorflow>=2.5, h5py, jupyter, matplotlib, numpy, tqdm
+We recommend to pip install 21cmLSTM within a virtual environment containing the following dependencies: python>=3.6, tensorflow>=2.5, h5py, jupyter, matplotlib, numpy
 
 ```
 git clone https://github.com/johnnydorigojones/21cmLSTM
