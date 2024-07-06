@@ -153,7 +153,7 @@ class Emulate:
         signal_val=signal_val,
         signal_test=signal_test,
         activation_func='tanh',
-        redshifts=redshifts,
+        redshifts=z_list,
         frequencies=None,
     ):
         """
