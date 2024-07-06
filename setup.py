@@ -14,11 +14,7 @@ setup(
   classifiers=['Intended Audience :: Science/Research',
                'Natural Language :: English',
                'License :: OSI Approved :: MIT License',
-               'Programming Language :: Python :: 3.8',
-               'Programming Language :: Python :: 3.9',
-               'Programming Language :: Python :: 3.10',
-               'Programming Language :: Python :: 3.11',
-               'Topic :: Scientific/Engineering',
+               'Programming Language :: Python :: 3',
                'Topic :: Scientific/Engineering :: Astronomy',
                'Topic :: Scientific/Engineering :: Physics',
 )
