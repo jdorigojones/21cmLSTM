@@ -12,7 +12,7 @@ It is recommended to install 21cmLSTM in a virtual environment with all required
 ```
 git clone https://github.com/johnnydorigojones/21cmLSTM
 cd 21cmLSTM
-python setup.py install --user
+python -m pip install .
 ```
 
 # Contributions
