@@ -19,7 +19,7 @@ def preproc_signals(unproc_signals: np.ndarray, train_signals: np.ndarray) -> np
     proc_signals = np.zeros_like(unproc_signals)
     proc_signals = (unproc_signals - np.min(train_signals))/(np.max(train_signals)-np.min(train_signals))  # global Min-Max normalization
     proc_signals = proc_signals[:,::-1] # flip signals to be from high-z to low-z
-    return proc_signal
+    return proc_signals
 
 ####################################################
 
