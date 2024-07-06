@@ -100,7 +100,7 @@ def preproc_params(unproc_params: np.ndarray, train_params: np.ndarray) -> np.nd
         for j in range(n):
             params_format[i, j, 0:7] = unproc_params[i,:]
             params_format[i, j, 7] = nu_list_norm[j]
-   i=0
+    i=0
     for i in range(p):
         x = params_format[:, :, i]
         proc_params[:,:,i] = (x - np.min(train_params_format[:, :, i]))/(np.max(train_params_format[:, :, i]) - np.min(train_params_format[:, :, i]))
