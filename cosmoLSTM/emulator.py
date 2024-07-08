@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
 import h5py
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
