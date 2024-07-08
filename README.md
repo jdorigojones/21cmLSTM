@@ -10,7 +10,7 @@ Please feel free to email me at johnny.dorigojones@colorado.edu about any questi
 We recommend to pip install 21cmLSTM within a virtual environment containing the following dependencies: python>=3.6, tensorflow>=2.5, h5py, jupyter, matplotlib, numpy
 
 ```
-git clone https://github.com/johnnydorigojones/21cmLSTM
+git clone https://github.com/jdorigojones/21cmLSTM
 cd 21cmLSTM
 python -m pip install .
 ```
