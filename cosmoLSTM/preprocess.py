@@ -132,7 +132,7 @@ def preproc_params(unproc_params: np.ndarray, train_params: np.ndarray) -> np.nd
         np.savetxt('models/train_data_mins.txt', train_min_list)
         np.savetxt('models/train_data_maxs.txt', train_max_list)
         x = proc_params_format[:,:,i]
-        proc_params[:,:,i] = (x-train_min)/(train_max-train_min)\
+        proc_params[:,:,i] = (x-train_min)/(train_max-train_min)
         
     return proc_params
 
