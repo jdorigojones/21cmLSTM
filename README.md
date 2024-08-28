@@ -6,7 +6,7 @@ The average relative rms error of 21cmLSTM is 0.22% when trained and tested on t
 
 21cmLSTM is free to use on the MIT open source license. This GitHub contains the full code for training and running the emulator, including data preprocessing, network training, and model evaluation, to facilitate the community in retraining 21cmLSTM on other data sets and models. The sample notebooks are for training 21cmLSTM on the 21cmGEM data set used in the paper, and for evaluating the best trial of 21cmLSTM discussed in the paper.
 
-Please feel free to reach out to me about questions, comments, improvements, or contributions at johnny.dorigojones@colorado.edu (can also open an issue or make a pull request). Please reference Dorigo Jones et al. 2024 and provide a link to this GitHub repository if you utilize this work or emulator in any way, and Dorigo Jones et al. 2023 if you perform joint fits using 21cmLSTM.
+Please feel free to contact me at johnny.dorigojones@colorado.edu about comments, questions, improvements, or contributions (can also open an issue or make a pull request). Please reference Dorigo Jones et al. 2024 and provide a link to this GitHub repository if you utilize this work or emulator in any way, and Dorigo Jones et al. 2023 if you perform joint fits using 21cmLSTM.
 
 # Set-up
 We recommend to pip install 21cmLSTM within a virtual environment containing the following dependencies: python>=3.6, tensorflow>=2.5, h5py, jupyter, matplotlib, numpy
