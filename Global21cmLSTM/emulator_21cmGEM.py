@@ -7,7 +7,7 @@ from Global21cmLSTM import __path__
 import Global21cmLSTM.preprocess_21cmGEM as pp
 
 PATH = __path__[0] + "/"
-data = 'dataset_21cmGEM_VAE.h5'
+data = 'dataset_21cmGEM.h5'
 z_list = np.linspace(5, 50, 451) # list of redshifts for 21cmGEM signals; equiv to np.arange(5, 50.1, 0.1)
 with h5py.File(data, "r") as f:
     print("Keys: %s" % f.keys())
