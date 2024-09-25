@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
   name='Global21cmLSTM',
   version='1.0.0',
-  url='https://github.com/johnnydorigojones/21cmLSTM',
+  url='https://github.com/jdorigojones/21cmLSTM',
   author='Johnny Dorigo Jones',
   author_email='johnny.dorigojones@colorado.edu',
   description='21cmLSTM: A Fast Memory-based Emulator of the Global 21 cm Signal with Unprecedented Accuracy',
