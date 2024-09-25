@@ -5,7 +5,7 @@ from tensorflow import keras
 from tensorflow.keras import backend as K
 from Global21cmLSTM import __path__
 
-class evaluate():
+class evaluate_21cmGEM():
     def __init__(self, **kwargs):
         
         for key, values in kwargs.items():
