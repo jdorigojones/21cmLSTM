@@ -18,7 +18,7 @@ with h5py.File('dataset_ARES.h5', "r") as f:
     print("Keys: %s" % f.keys())
     par_train = np.asarray(f['train_data'])[()]
     par_val = np.asarray(f['val_data'])[()]
-    par_test_= np.asarray(f['test_data'])[()]
+    par_test = np.asarray(f['test_data'])[()]
     signal_train = np.asarray(f['train_labels'])[()]
     signal_val = np.asarray(f['val_labels'])[()]
     signal_test = np.asarray(f['test_labels'])[()]
