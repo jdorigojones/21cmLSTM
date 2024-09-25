@@ -2,10 +2,6 @@ __version__ = "1.0"
 __author__ = "Johnny Dorigo Jones"
 
 from pathlib import Path
-from Global21cmLSTM import emulator_21cmGEM
-from Global21cmLSTM import emulator_ARES
-from Global21cmLSTM import preprocess_21cmGEM
-from Global21cmLSTM import preprocess_ARES
 
 HERE = __file__[: -len("__init__.py")]
 if not Path(HERE + "dataset_21cmGEM.h5").exists():
@@ -22,3 +18,7 @@ if not Path(HERE + "dataset_ARES.h5").exists():
     with open(HERE + "dataset_ARES.h5", "wb") as f:
         f.write(r.content)
 
+from Global21cmLSTM import emulator_21cmGEM
+from Global21cmLSTM import emulator_ARES
+from Global21cmLSTM import preprocess_21cmGEM
+from Global21cmLSTM import preprocess_ARES
