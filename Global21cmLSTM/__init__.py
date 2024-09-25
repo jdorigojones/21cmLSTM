@@ -14,7 +14,7 @@ if not Path(HERE + "dataset_21cmGEM.h5").exists():
 if not Path(HERE + "dataset_ARES.h5").exists():
     import requests
     print("Downloading data set for ARES used and generated in Dorigo Jones et al. 2024.")
-    r = requests.get("https://zenodo.org/record/xxxxxxx/files/dataset_ARES.h5?download=1")
+    r = requests.get("https://zenodo.org/record/13840725/files/dataset_ARES.h5?download=1")
     with open(HERE + "dataset_ARES.h5", "wb") as f:
         f.write(r.content)
 
