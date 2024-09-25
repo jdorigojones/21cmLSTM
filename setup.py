@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-  name='21cmLSTM',
+  name='Global21cmLSTM',
   version='1.0.0',
   url='https://github.com/johnnydorigojones/21cmLSTM',
   author='Johnny Dorigo Jones',
