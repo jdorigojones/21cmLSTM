@@ -24,4 +24,4 @@ python -m pip install .
 # Contributions
 Authors: Johnny Dorigo Jones and Shah Bahauddin
 
-Additional contributions from: David Rapetti, Christian H. Bye (provided 21cmGEM data sets)
+Additional contributions from: David Rapetti, Christian H. Bye
