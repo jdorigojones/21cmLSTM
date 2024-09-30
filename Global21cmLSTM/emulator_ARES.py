@@ -7,8 +7,6 @@ from tensorflow.keras.layers import LSTM, Dense
 from Global21cmLSTM import __path__
 import Global21cmLSTM.preprocess_ARES as pp
 
-#BASE_PATH_DATA = __path__[0] + "/"
-#BASE_PATH = '$HOME/21cmLSTM/Global21cmLSTM/'
 BASE_PATH = f"{os.environ.get('HOME')}/21cmLSTM/Global21cmLSTM/"
 z_list = np.linspace(5.1, 49.9, 449) # list of redshifts for ARES signals; equiv to np.arange(5.1, 50, 0.1)
 with h5py.File(BASE_PATH + 'dataset_ARES.h5', "r") as f:
