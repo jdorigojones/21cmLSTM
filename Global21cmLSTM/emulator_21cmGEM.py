@@ -7,8 +7,6 @@ from tensorflow.keras.layers import LSTM, Dense
 from Global21cmLSTM import __path__
 import Global21cmLSTM.preprocess_21cmGEM as pp
 
-#BASE_PATH_DATA = __path__[0] + "/"
-#BASE_PATH_MODELS = '$HOME/21cmLSTM/Global21cmLSTM/'
 BASE_PATH = f"{os.environ.get('HOME')}/21cmLSTM/Global21cmLSTM/"
 z_list = np.linspace(5, 50, 451) # list of redshifts for 21cmGEM signals; equiv to np.arange(5, 50.1, 0.1)
 with h5py.File(BASE_PATH + 'dataset_21cmGEM.h5', "r") as f:
