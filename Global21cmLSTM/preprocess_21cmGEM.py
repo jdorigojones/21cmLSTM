@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
 import numpy as np
 
 def preproc_params(unproc_params: np.ndarray, train_params: np.ndarray) -> np.ndarray:
