@@ -114,7 +114,7 @@ def error(true_signal, emulated_signal, relative=True, nu=None, nu_low=None, nu_
     ValueError : If nu is None and nu_low or nu_high are not None
     """
     if (nu_low or nu_high) and nu is None:
-        raise ValueError("Cannot compute error in specified frequency band because no frequency array is given.")
+        raise ValueError("Cannot compute error because no frequency array is given.")
     if len(emulated_signal.shape) == 1:
         emulated_signal = np.expand_dims(emulated_signal, axis=0)
         true_signal = np.expand_dims(true_signal, axis=0)
