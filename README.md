@@ -1,3 +1,5 @@
+[![DOI: 10.5281/zenodo.13916934](https://zenodo.org/badge/doi/10.5281/zenodo.13916934.svg)](https://doi.org/10.5281/zenodo.13916934)
+
 # 21cmLSTM
 
 ### Background
