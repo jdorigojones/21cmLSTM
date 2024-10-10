@@ -117,8 +117,7 @@ def error(true_signal, emulated_signal, relative=True, nu=None, nu_low=None, nu_
 
     Raises
     ------
-    ValueError :
-        If nu is None and nu_low or nu_high are not None
+    ValueError : If nu is None and nu_low or nu_high are not None
     """
     if (nu_low or nu_high) and nu is None:
         raise ValueError("Cannot compute error in specified frequency band because no frequency array is given.")
@@ -240,11 +239,11 @@ class Emulate:
         Parameters
         ----------
         model_path : str
-            The path to the saved model.
+            The path to the saved model instance
 
         Raises
         ------
-        IOError : if model_path does not point to a valid model.
+        IOError : if model_path does not point to a valid model instance
         """
         self.emulator = tf.keras.models.load_model(model_path)
 
@@ -323,11 +322,11 @@ class Emulate:
         relative : bool
             True to compute the rms error in relative (%) units. False for absolute (mK) units. Default : True
         nu_low : float or None
-            The lower bound of the frequency band to compute the error in.
+            The lower bound of the frequency band to compute the error in
             Default : None.
         nu_high : float or None
-            The upper bound of the frequency bnd to compute the error in.
-            Default : None.
+            The upper bound of the frequency bnd to compute the error in
+            Default : None
 
         Returns
         -------
