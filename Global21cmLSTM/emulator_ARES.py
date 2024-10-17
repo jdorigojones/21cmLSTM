@@ -211,7 +211,7 @@ class Emulate:
         self.signal_val = signal_val
         self.signal_test = signal_test
 
-        self.par_labels = [r'$c_X$', r'$f_{\rm esc}$', r'${T_{\rm min}$', r'$\log_{10}{N_{H I}}$',
+        self.par_labels = [r'$c_X$', r'$f_{\rm esc}$', r'${T_{\rm min}}$', r'$\log_{10}{N_{H I}}$',
                            r'$f_{\star, 0}$',r'$M_p$',r'$\gamma_{lo}$', r'$\gamma_{hi}$']
 
         self.emulator = model(self.signal_train.shape[-1], self.par_train.shape[-1]+1, 1,
