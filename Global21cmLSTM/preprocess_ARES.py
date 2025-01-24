@@ -1,7 +1,7 @@
 import numpy as np
 import os
 
-PATH = f"{os.environ.get('HOME')}/.Global21cmLSTM/"
+PATH = f"{os.environ.get('AUX_DIR', os.environ.get('HOME'))}/.Global21cmLSTM/"
 
 def preproc_params(unproc_params: np.ndarray, train_params: np.ndarray) -> np.ndarray:
     """

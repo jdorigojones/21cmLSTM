@@ -39,11 +39,12 @@ setup(
     ],
 )
 
-# the below code creates a hidden folder in $HOME to store needed auxiliary H5 and txt files (i.e., data sets, trained models, training set min and max values)
-# and copies/downloads those files to the folder
-# the location of this folder can be changed here if the user's $HOME has storage limitations, but note that if the location of this folder is changed here
-# then the specified PATH must be updated in the emulator.py, preprocess.py, and eval.py scripts for the respective model/data
-BASE_PATH = f"{os.environ.get('HOME')}/.Global21cmLSTM/"
+# the below code creates a hidden folder in $HOME to store needed auxiliary H5 and txt files 
+# (i.e., data sets, trained models, training set min and max values) and copies/downloads those files to the folder.
+# The location of this folder can be changed here if the user's $HOME has storage limitations by setting the 
+# environment variable AUX_DIR to an alternative location. Note: AUX_DIR will need to be set each time the 
+# package is used. 
+BASE_PATH = f"{os.environ.get('AUX_DIR', os.environ.get('HOME'))}/.Global21cmLSTM/"
 MODELS_INSTALL_PATH = os.path.dirname(os.path.realpath(__file__))+'/Global21cmLSTM/models/'
 emulator_files_list = ['emulator_21cmGEM.h5', 'emulator_ARES.h5', 'train_maxs_21cmGEM.txt',\
                        'train_mins_21cmGEM.txt', 'train_maxs_ARES.txt', 'train_mins_ARES.txt']

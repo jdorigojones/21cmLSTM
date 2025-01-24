@@ -7,7 +7,7 @@ from tensorflow.keras.layers import LSTM, Dense
 from Global21cmLSTM import __path__
 import Global21cmLSTM.preprocess_21cmGEM as pp
 
-PATH = f"{os.environ.get('HOME')}/.Global21cmLSTM/"
+PATH = f"{os.environ.get('AUX_DIR', os.environ.get('HOME'))}/.Global21cmLSTM/"
 z_list = np.linspace(5, 50, 451) # list of redshifts for 21cmGEM signals; equiv to np.arange(5, 50.1, 0.1)
 vr = 1420.4057517667  # rest frequency of 21 cm line in MHz
 with h5py.File(PATH + 'dataset_21cmGEM.h5', "r") as f:
