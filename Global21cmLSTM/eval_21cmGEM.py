@@ -6,7 +6,7 @@ from tensorflow import keras
 from tensorflow.keras import backend as K
 from Global21cmLSTM import __path__
 
-PATH = f"{os.environ.get('HOME')}/.Global21cmLSTM/"
+PATH = f"{os.environ.get('AUX_DIR', os.environ.get('HOME'))}/.Global21cmLSTM/"
 
 class evaluate_21cmGEM():
     def __init__(self, **kwargs):

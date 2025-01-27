@@ -7,7 +7,7 @@ from tensorflow.keras.layers import LSTM, Dense
 from Global21cmLSTM import __path__
 import Global21cmLSTM.preprocess_ARES as pp
 
-PATH = f"{os.environ.get('HOME')}/.Global21cmLSTM/"
+PATH = f"{os.environ.get('AUX_DIR', os.environ.get('HOME'))}/.Global21cmLSTM/"
 z_list = np.linspace(5.1, 49.9, 449) # list of redshifts for ARES signals; equiv to np.arange(5.1, 50, 0.1)
 vr = 1420.4057517667  # rest frequency of 21 cm line in MHz
 with h5py.File(PATH + 'dataset_ARES.h5', "r") as f:
