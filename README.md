@@ -25,6 +25,22 @@ cd 21cmLSTM
 python -m pip install .
 ```
 
+## Apptainer container
+
+For ease of use and reproducibility, we also include a definition file for an [Apptainer](https://apptainer.org/) 
+container build. To build the container on a system with Apptainer, execute the following. 
+
+```
+apptainer build --fix-perms --fakeroot --nv 21cmLSTM.sif 21cmLSTM.def
+```
+
+Once the container has been built, you can interact with it using Apptainer commands. For example, you can run 
+the container interactively as follows. 
+
+```
+apptainer shell --nv ./21cmLSTM.sif
+```
+
 # Contributions
 Authors: Johnny Dorigo Jones and Shah Bahauddin
 

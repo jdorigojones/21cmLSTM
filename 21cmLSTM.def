@@ -1,0 +1,22 @@
+Bootstrap: docker
+From: nvcr.io/nvidia/tensorflow:23.12-tf2-py3
+
+%post
+
+	# install matplotlib
+	pip install matplotlib
+
+	# create environment variable and directory used to store auxiliary files
+	export AUX_DIR=/21cmLSTM_AUX_DIR
+	mkdir -p $AUX_DIR
+	
+	# install 21cmLSTM via pip
+	cd / 
+	git clone https://github.com/jdorigojones/21cmLSTM.git
+	cd 21cmLSTM
+	python -m pip install .
+
+%environment
+
+	# export AUX_DIR so it will automatically be set in the container
+	export AUX_DIR=/21cmLSTM_AUX_DIR
