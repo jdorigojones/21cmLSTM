@@ -44,4 +44,4 @@ apptainer shell --nv ./21cmLSTM.sif
 # Contributions
 Authors: Johnny Dorigo Jones and Shah Bahauddin
 
-Additional contributions from: Jordan Mirocha, David Rapetti, Brandon Reyes
+Additional contributions from: Brandon Reyes, Jordan Mirocha, and David Rapetti
