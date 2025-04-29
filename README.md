@@ -17,7 +17,7 @@ The average evaluation speed of 21cmLSTM is 46 ms when emulating one signal at a
 Please reach out to me at johnny.dorigojones@colorado.edu about any comments, questions, or contributions (can also open an issue or make a pull request). Please reference [Dorigo Jones et al. 2024](https://ui.adsabs.harvard.edu/abs/2024ApJ...977...19D/abstract) and provide a link to this GitHub repository if you utilize this work or emulator in any way, and [Dorigo Jones et al. 2023](https://ui.adsabs.harvard.edu/abs/2023ApJ...959...49D/abstract) regarding posterior emulation bias or if you perform joint fits using 21cmLSTM.
 
 # Set-up
-We recommend to pip install 21cmLSTM within a virtual environment containing the following dependencies: python>=3.6, h5py, jupyter, matplotlib, numpy, tensorflow>=2.5 **Note that loading the saved Keras models included in this repository requires tensorflow <=2.15.**
+We recommend to pip install 21cmLSTM within a virtual environment containing the following dependencies: python>=3.6, h5py, jupyter, matplotlib, numpy, tensorflow>=2.5 **Note that loading the saved Keras models included in this repository requires tensorflow <=2.16.1.**
 
 ```
 git clone https://github.com/jdorigojones/21cmLSTM
