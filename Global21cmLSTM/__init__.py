@@ -14,6 +14,7 @@ from Global21cmLSTM import __path__
 
 from Global21cmLSTM import emulator_21cmGEM
 from Global21cmLSTM import emulator_ARES
+from Global21cmLSTM import emulator_foreground
 from Global21cmLSTM import preprocess_21cmGEM
 from Global21cmLSTM import preprocess_ARES
-
+from Global21cmLSTM import preprocess_foreground
