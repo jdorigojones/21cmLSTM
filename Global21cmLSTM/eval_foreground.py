@@ -28,8 +28,8 @@ class evaluate_foreground():
         elif self.model_dir.endswith('/') is False:
             raise KeyError("'model_dir' must end with '/'.")
 
-        self.train_mins = np.loadtxt(self.model_dir+'train_mins_foreground_beam_meansub.npy')
-        self.train_maxs = np.loadtxt(self.model_dir+'train_maxs_foreground_beam_meansub.npy')
+        self.train_mins = np.load(self.model_dir+'train_mins_foreground_beam_meansub.npy')
+        self.train_maxs = np.load(self.model_dir+'train_maxs_foreground_beam_meansub.npy')
 
         self.model = kwargs.pop('model', None)
         if self.model is None:
