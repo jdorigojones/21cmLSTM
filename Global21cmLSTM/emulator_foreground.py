@@ -264,10 +264,10 @@ class Emulate:
         ------
         IOError : if model_path does not point to a valid model instance
         """
-        #self.emulator = tf.keras.models.load_model(model_path)
-        print(f"Loading model from: {model_path}")
-        self.emulator = torch.load(model_path, weights_only=False)
-        self.emulator.to(device)
+        self.emulator = tf.keras.models.load_model(model_path)
+        # print(f"Loading model from: {model_path}")
+        # self.emulator = torch.load(model_path, weights_only=False)
+        # self.emulator.to(device)
 
     def train(self, epochs, batch_size, callbacks=[], verbose=2, shuffle='True'):
         """
@@ -352,19 +352,15 @@ class Emulate:
             x = proc_params_format[:,:,i]
             proc_params[:,:,i] = (x-self.train_mins[i])/(self.train_maxs[i]-self.train_mins[i])
 
-        proc_params_test = torch.from_numpy(proc_params)
-        proc_params_test = proc_params_test.to(device)
+        #proc_params_test = torch.from_numpy(proc_params)
+        #proc_params_test = proc_params_test.to(device)
         proc_params_format = 0
-        proc_params = 0
         params = 0
 
-        self.emulator.eval()
-        with torch.no_grad():
-            result = self.emulator(proc_params_test) # evaluate trained instance of 21cmKAN with processed parameters
-
-        result = result.cpu().detach().numpy()
-        unproc_spectra = result.copy()
-        unproc_spectra = (result*(self.train_maxs[-1]-self.train_mins[-1]))+self.train_mins[-1] # denormalize spectra
+        proc_spectra = self.emulator.predict(proc_params)
+        unproc_spectra = proc_spectra.copy()
+        unproc_spectra = (proc_spectra*(self.train_maxs[-1]-self.train_mins[-1]))+self.train_mins[-1] # denormalize spectra
+        unproc_spectra = np.squeeze(unproc_spectra, axis=2)
         #unproc_spectra = unproc_spectra[:,::-1] # flip spectra to be from high-z to low-z
         if unproc_spectra.shape[0] == 1:
             return unproc_spectra[0,:]
