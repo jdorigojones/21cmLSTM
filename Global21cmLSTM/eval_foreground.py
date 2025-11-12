@@ -33,7 +33,7 @@ class evaluate_foreground():
 
         self.model = kwargs.pop('model', None)
         if self.model is None:
-            self.model = keras.models.load_model(self.model_dir+'emulator_foreground_beam_meansub_21cmLSTM_long.h5',compile=False)
+            self.model = keras.models.load_model(self.model_dir+'emulator_foreground_beam_meansub_21cmLSTM_long.h5')#,compile=False)
 
     def __call__(self, parameters):
 
