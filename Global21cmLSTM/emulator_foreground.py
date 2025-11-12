@@ -8,10 +8,18 @@ import h5py
 import tensorflow as tf
 import numpy as np
 import os
+import torch 
+import torch.optim as optim
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense
 from Global21cmLSTM import __path__
 import Global21cmLSTM.preprocess_foreground as pp
+
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+print("Device: ", device)
+
+# Set default torch type to float64
+torch.set_default_dtype(torch.float64)
 
 #PATH = f"{os.environ.get('AUX_DIR', os.environ.get('HOME'))}/.Global21cmLSTM/"
 PATH = '/projects/jodo2960/beam_weighted_foreground/'
@@ -256,7 +264,10 @@ class Emulate:
         ------
         IOError : if model_path does not point to a valid model instance
         """
-        self.emulator = tf.keras.models.load_model(model_path)
+        #self.emulator = tf.keras.models.load_model(model_path)
+        print(f"Loading model from: {model_path}")
+        self.emulator = torch.load(model_path, weights_only=False)
+        self.emulator.to(device)
 
     def train(self, epochs, batch_size, callbacks=[], verbose=2, shuffle='True'):
         """
