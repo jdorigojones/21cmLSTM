@@ -29,6 +29,12 @@ with h5py.File(PATH + 'bw_training_set_500k_split_meansub.h5', "r") as f:
     spectra_test = np.asarray(f['spectra_test'])[()]
 f.close()
 
+#PATH = f"{os.environ.get('HOME')}/.Global21cmLSTM/"
+PATH = '/projects/jodo2960/beam_weighted_foreground/'
+model_save_path = PATH+"models/emulator_foreground_beam_meansub.pth"
+train_mins_foreground_beam = np.load(PATH+"models/train_mins_foreground_beam_meansub.npy")
+train_maxs_foreground_beam = np.load(PATH+"models/train_maxs_foreground_beam_meansub.npy")
+
 def model(num_frequencies, num_params, dim_output, activation_func="tanh", name=None):
     """
     Generate a 21cmLSTM Keras Sequential model (i.e., linear stack of two LSTM layers and one Dense layer)
@@ -226,6 +232,9 @@ class Emulate:
         self.emulator = model(self.spectrum_train.shape[-1], self.par_train.shape[-1]+1, 1,
                               activation_func, name="emulator_foreground_beam_meansub_21cmLSTM_long")
 
+        self.train_mins = train_mins_foreground_beam
+        self.train_maxs = train_maxs_foreground_beam
+        
         if frequencies is None:
             if redshifts is not None:
                 frequencies = frequency(redshifts)
