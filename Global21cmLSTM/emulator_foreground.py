@@ -307,14 +307,58 @@ class Emulate:
         emulated_spectra : np.ndarray
            The predicted beam-weighted foreground spectra
         """
-        proc_params = pp.preproc_params(params, self.par_train)
-        proc_emulated_spectra = self.emulator.predict(proc_params)
-        emulated_spectra = pp.unpreproc_spectra(proc_emulated_spectra, self.spectrum_train)
-        emulated_spectra = np.squeeze(emulated_spectra, axis=2)
-        if emulated_spectra.shape[0] == 1:
-            return emulated_spectra[0, :]
+        if len(np.shape(params)) == 1:
+            params = np.expand_dims(params, axis=0) # if doing one spectrum at a time
+
+        nu_list = np.linspace(6,50,176)
+        vr = 1420.405751
+        z_list = (vr/nu_list) - 1
+        nu_list_norm = nu_list/np.max(nu_list)
+
+        # include the same parameter preprocessing code performed earlier to transform the input
+        # physical parameters to normalized parameters that can be used to train 21cmKAN
+        N_proc = np.shape(params)[0] # number of spectra (i.e., parameter sets) to process
+        n = len(z_list) # number of frequency channels, same as the number of redshift bins
+        p = np.shape(params)[1]+1 # number of input parameters for each LSTM cell/layer (# of physical params plus one for frequency step)
+        proc_params_format = np.zeros((N_proc,n,p))
+        proc_params = np.zeros_like(proc_params_format)
+
+        for i in range(N_proc):
+            for j in range(n):
+                proc_params_format[i, j, 0:18] = params[i,:]
+                proc_params_format[i, j, 18] = nu_list_norm[j]
+        
+        for i in range(p):
+            x = proc_params_format[:,:,i]
+            proc_params[:,:,i] = (x-self.train_mins[i])/(self.train_maxs[i]-self.train_mins[i])
+
+        proc_params_test = torch.from_numpy(proc_params)
+        proc_params_test = proc_params_test.to(device)
+        proc_params_format = 0
+        proc_params = 0
+        params = 0
+
+        self.emulator.eval()
+        with torch.no_grad():
+            result = self.emulator(proc_params_test) # evaluate trained instance of 21cmKAN with processed parameters
+
+        result = result.cpu().detach().numpy()
+        unproc_spectra = result.copy()
+        unproc_spectra = (result*(self.train_maxs[-1]-self.train_mins[-1]))+self.train_mins[-1] # denormalize spectra
+        #unproc_spectra = unproc_spectra[:,::-1] # flip spectra to be from high-z to low-z
+        if unproc_spectra.shape[0] == 1:
+            return unproc_spectra[0,:]
         else:
-            return emulated_spectra
+            return unproc_spectra
+        
+        # proc_params = pp.preproc_params(params, self.par_train)
+        # proc_emulated_spectra = self.emulator.predict(proc_params)
+        # emulated_spectra = pp.unpreproc_spectra(proc_emulated_spectra, self.spectrum_train)
+        # emulated_spectra = np.squeeze(emulated_spectra, axis=2)
+        # if emulated_spectra.shape[0] == 1:
+        #     return emulated_spectra[0, :]
+        # else:
+        #     return emulated_spectra
 
     def test_error(self, relative=True, nu_low=None, nu_high=None):
         """
