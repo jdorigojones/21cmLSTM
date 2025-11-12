@@ -59,19 +59,12 @@ class evaluate_foreground():
         for i in range(p):
             x = proc_params_format[:,:,i]
             proc_params[:,:,i] = (x-self.train_mins[i])/(self.train_maxs[i]-self.train_mins[i])
-
-        batch_size = 256  # or 512, depending on your GPU
-        results = []
-        for i in range(0, len(proc_params), batch_size):
-            batch = proc_params[i:i+batch_size]
-            pred = self.model(batch, training=False).numpy()
-            results.append(pred)
             
-        results = np.concatenate(results, axis=0)
-        #result = self.model(proc_params, training=False).numpy() # evaluate trained instance of 21cmLSTM with processed parameters
-        evaluation = results.T[0].T
+        result = self.model(proc_params, training=False).numpy() # evaluate trained instance of 21cmLSTM with processed parameters
+        evaluation = result.T[0].T
         unproc_signals = evaluation.copy()
         unproc_signals = (evaluation*(self.train_maxs[-1]-self.train_mins[-1]))+self.train_mins[-1] # unpreprocess (i.e., denormalize) signals
+        unproc_signals = np.squeeze(unproc_signals, axis=2)
         if unproc_signals.shape[0] == 1:
             return unproc_signals[0,:]
         else:
