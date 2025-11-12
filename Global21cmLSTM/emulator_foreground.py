@@ -224,7 +224,7 @@ class Emulate:
                            r'$A_4$', r'$\beta_4$', r'$\gamma_4$', r'$A_5$', r'$\beta_5$', r'$\gamma_5$', r'L', r'$\epsilon_{top}$', r'$\epsilon_{bottom}$'] 
 
         self.emulator = model(self.spectrum_train.shape[-1], self.par_train.shape[-1]+1, 1,
-                              activation_func, name="emulator_foreground_beam_meansub_21cmLSTM")
+                              activation_func, name="emulator_foreground_beam_meansub_21cmLSTM_long")
 
         if frequencies is None:
             if redshifts is not None:
@@ -234,7 +234,7 @@ class Emulate:
         self.redshifts = redshifts
         self.frequencies = frequencies
 
-    def load_model(self, model_path=PATH+"models/emulator_foreground_beam_meansub_21cmLSTM.h5"):
+    def load_model(self, model_path=PATH+"models/emulator_foreground_beam_meansub_21cmLSTM_long.h5"):
         """
         Load a saved model instance of 21cmLSTM trained on the beam-weighted foreground spectra data set.
 
@@ -289,7 +289,7 @@ class Emulate:
         train_loss = hist.history["loss"]
         val_loss = hist.history["val_loss"]
 
-        self.emulator.save(PATH+'models/emulator_foreground_beam_meansub_21cmLSTM.h5') # save the entire model in HDF5 format
+        self.emulator.save(PATH+'models/emulator_foreground_beam_meansub_21cmLSTM_long.h5') # save the entire model in HDF5 format
 
         return train_loss, val_loss
 
