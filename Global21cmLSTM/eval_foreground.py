@@ -20,7 +20,7 @@ class evaluate_foreground():
     def __init__(self, **kwargs):
         emulator_foreground = Global21cmLSTM.emulator_foreground.Emulate()
         self.par_train = emulator_foreground.par_train
-        self.spectrum_train = emulator_foreground.pspectrum_train
+        self.spectrum_train = emulator_foreground.spectrum_train
         PATH = '/projects/jodo2960/beam_weighted_foreground/'
         self.emulator = tf.keras.models.load_model(PATH+'emulator_foreground_beam_meansub_21cmLSTM_long.h5')
 
