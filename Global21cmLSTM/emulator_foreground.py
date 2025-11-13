@@ -331,7 +331,7 @@ class Emulate:
         proc_emulated_spectra = self.emulator.predict(proc_params)
         emulated_spectra = pp.unpreproc_spectra(proc_emulated_spectra, self.spectrum_train)
         print(np.shape(emulated_spectra))
-        #emulated_spectra = np.squeeze(emulated_spectra, axis=2)
+        emulated_spectra = np.squeeze(emulated_spectra, axis=2)
         if emulated_spectra.shape[0] == 1:
             return emulated_spectra[0, :]
         else:
