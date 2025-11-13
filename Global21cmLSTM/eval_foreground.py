@@ -20,24 +20,24 @@ class evaluate_foreground():
     def __init__(self, **kwargs):
 
         for key, values in kwargs.items():
-            if key not in set(['model_dir', 'model']):
+            if key not in set(['model_path', 'model']):
                 raise KeyError("Unexpected keyword argument in evaluate()")
 
-        self.model_dir = kwargs.pop('model_dir', PATH+'models/')
-        if type(self.model_dir) is not str:
-            raise TypeError("'model_dir' must be a sting.")
-        elif self.model_dir.endswith('/') is False:
-            raise KeyError("'model_dir' must end with '/'.")
+        self.model_path = kwargs.pop('model_path', PATH+'models/')
+        if type(self.model_path) is not str:
+            raise TypeError("'model_path' must be a sting.")
+        elif self.model_path.endswith('/') is False:
+            raise KeyError("'model_path' must end with '/'.")
 
-        self.train_mins = np.load(self.model_dir+'train_mins_foreground_beam_meansub.npy')
-        self.train_maxs = np.load(self.model_dir+'train_maxs_foreground_beam_meansub.npy')
+        self.train_mins = np.load(self.model_path+'train_mins_foreground_beam_meansub.npy')
+        self.train_maxs = np.load(self.model_path+'train_maxs_foreground_beam_meansub.npy')
 
         emulator_foreground = Global21cmLSTM.emulator_foreground.Emulate() # initialize 21cmLSTM to emulate 21cmGEM data
         emulator_foreground.load_model()
 
         self.model = kwargs.pop('model', None)
         if self.model is None:
-            self.model = keras.models.load_model(self.model_dir+'emulator_foreground_beam_meansub_21cmLSTM_long.h5')#,compile=False)
+            self.model = keras.models.load_model(self.model_path+'emulator_foreground_beam_meansub_21cmLSTM_long.h5')#,compile=False)
 
     def __call__(self, parameters):
 
