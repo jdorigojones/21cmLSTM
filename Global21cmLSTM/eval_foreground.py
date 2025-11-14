@@ -18,16 +18,49 @@ from Global21cmLSTM import __path__
 
 class evaluate_foreground():
     def __init__(self, **kwargs):
-        emulator_foreground = Global21cmLSTM.emulator_foreground.Emulate()
-        self.par_train = emulator_foreground.par_train
-        self.spectrum_train = emulator_foreground.spectrum_train
-        PATH = '/projects/jodo2960/beam_weighted_foreground/models/'
-        self.emulator = tf.keras.models.load_model(PATH+'emulator_foreground_beam_meansub_21cmLSTM_long.h5')
+        for key, values in kwargs.items():
+            if key not in set(['model_path', 'model']):
+                raise KeyError("Unexpected keyword argument in evaluate()")
+
+        # Default model path
+        default_model_path = f"/projects/jodo2960/beam_weighted_foreground/models/emulator_foreground_beam_meansub_21cmLSTM_long.h5"
+        model_path = kwargs.pop('model_path', default_model_path)
+                
+        # Load normalization data from the same directory as the model
+        model_dir = os.path.dirname(model_path) + '/'
+        self.train_mins = np.load(model_dir + 'train_mins_foreground_beam_meansub_LSTM.npy')
+        self.train_maxs = np.load(model_dir + 'train_maxs_foreground_beam_meansub_LSTM.npy')
+        
+        self.model = kwargs.pop('model', None)
+        if self.model is None:
+            self.model = keras.models.load_model(model_path,compile=False)
 
     def __call__(self, parameters):
-        proc_params = pp.preproc_params(params, self.par_train)
-        proc_emulated_spectra = self.emulator.predict(proc_params)
-        emulated_spectra = pp.unpreproc_spectra(proc_emulated_spectra, self.spectrum_train)
+        if len(np.shape(parameters)) == 1:
+            parameters = np.expand_dims(parameters, axis=0) # if doing one signal at a time
+            
+        nu_list = np.linspace(6,50,176)
+        vr = 1420.405751
+        z_list = (vr/nu_list) - 1
+        nu_list_norm = nu_list/np.max(nu_list) # list to be Min-Max normalized later
+        N_proc = np.shape(parameters)[0] # number of signals (i.e., parameter sets) to process
+        n = len(z_list) # number of frequency channels or redshift bins
+        p = np.shape(parameters)[1]+1 # number of input parameters for each LSTM cell/layer (# of physical params plus one for frequency step)
+        proc_params_format = np.zeros((N_proc,n,p))
+        proc_params = np.zeros_like(proc_params_format)
+        
+        for i in range(N_proc):
+            for j in range(n):
+                proc_params_format[i, j, 0:18] = parameters[i,:]
+                proc_params_format[i, j, 18] = nu_list_norm[j]
+        
+        for i in range(p):
+            x = proc_params_format[:,:,i]
+            proc_params[:,:,i] = (x-self.train_mins[i])/(self.train_maxs[i]-self.train_mins[i])
+            
+        result = self.model.predict(proc_params)#, training=False).numpy() # evaluate trained instance of 21cmLSTM with processed parameters
+        emulated_spectra = result.copy()
+        emulated_spectra = (result*(self.train_maxs[-1]-self.train_mins[-1]))+self.train_mins[-1] # unpreprocess (i.e., denormalize) signals
         emulated_spectra = np.squeeze(emulated_spectra, axis=2)
         if emulated_spectra.shape[0] == 1:
             return emulated_spectra[0, :]
