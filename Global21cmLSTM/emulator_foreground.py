@@ -39,7 +39,7 @@ f.close()
 
 #PATH = f"{os.environ.get('HOME')}/.Global21cmLSTM/"
 PATH = '/projects/jodo2960/beam_weighted_foreground/'
-model_save_path = PATH+"models/emulator_foreground_beam_meansub.pth"
+model_save_path = PATH+"models/emulator_foreground_beam_meansub_3layer.pth"
 train_mins_foreground_beam = np.load(PATH+"models/train_mins_foreground_beam_meansub.npy")
 train_maxs_foreground_beam = np.load(PATH+"models/train_maxs_foreground_beam_meansub.npy")
 
@@ -66,6 +66,7 @@ def model(num_frequencies, num_params, dim_output, activation_func="tanh", name=
         The generated model
     """
     model = Sequential([LSTM(units=num_frequencies, activation=activation_func, return_sequences=True, input_shape=(num_frequencies, num_params)),
+                        LSTM(units=num_frequencies, activation=activation_func, return_sequences=True),
                         LSTM(units=num_frequencies, activation=activation_func, return_sequences=True),
                         Dense(units=dim_output)], name=name)
     return model
