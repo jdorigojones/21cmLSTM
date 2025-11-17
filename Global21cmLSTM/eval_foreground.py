@@ -23,7 +23,7 @@ class evaluate_foreground():
                 raise KeyError("Unexpected keyword argument in evaluate()")
 
         # Default model path
-        default_model_path = f"/projects/jodo2960/beam_weighted_foreground/models/emulator_foreground_beam_meansub_21cmLSTM_long.h5"
+        default_model_path = f"/projects/jodo2960/beam_weighted_foreground/models/emulator_foreground_beam_meansub_21cmLSTM_3layer.h5"
         model_path = kwargs.pop('model_path', default_model_path)
                 
         # Load normalization data from the same directory as the model
