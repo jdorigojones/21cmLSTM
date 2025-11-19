@@ -11,7 +11,7 @@ import os
 import torch 
 import torch.optim as optim
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import LSTM, Dense
+from tensorflow.keras.layers import LSTM, Dense, Bidirectional
 from Global21cmLSTM import __path__
 import Global21cmLSTM.preprocess_foreground as pp
 
@@ -39,7 +39,7 @@ f.close()
 
 #PATH = f"{os.environ.get('HOME')}/.Global21cmLSTM/"
 PATH = '/projects/jodo2960/beam_weighted_foreground/'
-model_save_path = PATH+"models/emulator_foreground_beam_meansub_3layer.pth"
+model_save_path = PATH+"models/emulator_foreground_beam_meansub_3layerBi.pth"
 train_mins_foreground_beam = np.load(PATH+"models/train_mins_foreground_beam_meansub.npy")
 train_maxs_foreground_beam = np.load(PATH+"models/train_maxs_foreground_beam_meansub.npy")
 
@@ -65,9 +65,9 @@ def model(num_frequencies, num_params, dim_output, activation_func="tanh", name=
     model : tf.keras.Model
         The generated model
     """
-    model = Sequential([LSTM(units=num_frequencies, activation=activation_func, return_sequences=True, input_shape=(num_frequencies, num_params)),
-                        LSTM(units=num_frequencies, activation=activation_func, return_sequences=True),
-                        LSTM(units=num_frequencies, activation=activation_func, return_sequences=True),
+    model = Sequential([Bidirectional(LSTM(units=num_frequencies, activation=activation_func, return_sequences=True, input_shape=(num_frequencies, num_params))),
+                        Bidirectional(LSTM(units=num_frequencies, activation=activation_func, return_sequences=True)),
+                        Bidirectional(LSTM(units=num_frequencies, activation=activation_func, return_sequences=True)),
                         Dense(units=dim_output)], name=name)
     return model
 
@@ -239,7 +239,7 @@ class Emulate:
                            r'$A_4$', r'$\beta_4$', r'$\gamma_4$', r'$A_5$', r'$\beta_5$', r'$\gamma_5$', r'L', r'$\epsilon_{top}$', r'$\epsilon_{bottom}$'] 
 
         self.emulator = model(self.spectrum_train.shape[-1], self.par_train.shape[-1]+1, 1,
-                              activation_func, name="emulator_foreground_beam_meansub_21cmLSTM_3layer")
+                              activation_func, name="emulator_foreground_beam_meansub_21cmLSTM_3layerBi")
 
         self.train_mins = train_mins_foreground_beam
         self.train_maxs = train_maxs_foreground_beam
@@ -252,7 +252,7 @@ class Emulate:
         self.redshifts = redshifts
         self.frequencies = frequencies
 
-    def load_model(self, model_path=PATH+"models/emulator_foreground_beam_meansub_21cmLSTM_3layer.h5"):
+    def load_model(self, model_path=PATH+"models/emulator_foreground_beam_meansub_21cmLSTM_3layerBi.h5"):
         """
         Load a saved model instance of 21cmLSTM trained on the beam-weighted foreground spectra data set.
 
@@ -310,7 +310,7 @@ class Emulate:
         train_loss = hist.history["loss"]
         val_loss = hist.history["val_loss"]
 
-        self.emulator.save(PATH+'models/emulator_foreground_beam_meansub_21cmLSTM_3layer.h5') # save the entire model in HDF5 format
+        self.emulator.save(PATH+'models/emulator_foreground_beam_meansub_21cmLSTM_3layerBi.h5') # save the entire model in HDF5 format
 
         return train_loss, val_loss
 
