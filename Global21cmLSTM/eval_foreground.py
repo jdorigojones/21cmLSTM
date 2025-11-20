@@ -6,6 +6,7 @@
 
 import numpy as np
 import tensorflow as tf
+import torch
 import gc
 import os
 from tensorflow import keras
@@ -13,6 +14,10 @@ from tensorflow.keras import backend as K
 import Global21cmLSTM as Global21cmLSTM
 import Global21cmLSTM.preprocess_foreground as pp
 from Global21cmLSTM import __path__
+
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+print(device)
+torch.set_default_dtype(torch.float64)
 
 #PATH = f"{os.environ.get('HOME')}/.Global21cmLSTM/"
 
@@ -34,6 +39,7 @@ class evaluate_foreground():
         self.model = kwargs.pop('model', None)
         if self.model is None:
             self.model = keras.models.load_model(model_path,compile=False)
+            self.model.to(device)
 
     def __call__(self, parameters):
         if len(np.shape(parameters)) == 1:
@@ -57,8 +63,15 @@ class evaluate_foreground():
         for i in range(p):
             x = proc_params_format[:,:,i]
             proc_params[:,:,i] = (x-self.train_mins[i])/(self.train_maxs[i]-self.train_mins[i])
-            
-        result = self.model(proc_params)#, training=False).numpy() # evaluate trained instance of 21cmLSTM with processed parameters
+        proc_params_input = torch.from_numpy(proc_params)
+        proc_params = 0
+        parameters = 0
+        proc_params_input = proc_params_input.to(device)
+
+        self.model.eval()
+        with torch.no_grad():
+            result = self.model(proc_params_input)
+        result = result.cpu().detach().numpy() #result = self.model(proc_params)#, training=False).numpy() # evaluate trained instance of 21cmLSTM with processed parameters
         emulated_spectra = result.copy()
         emulated_spectra = (result*(self.train_maxs[-1]-self.train_mins[-1]))+self.train_mins[-1] # unpreprocess (i.e., denormalize) signals
         emulated_spectra = np.squeeze(emulated_spectra, axis=2)
