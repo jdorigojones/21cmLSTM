@@ -21,7 +21,7 @@ except:
 
 #PATH = f"{os.environ.get('AUX_DIR', os.environ.get('HOME'))}/.Global21cmLSTM/"
 PATH = '/projects/jodo2960/beam_weighted_foreground/'
-model_save_path_foreground = PATH+"models/emulator_foreground_beam_meansub_21cmLSTM_3layerBi.h5"
+model_save_path_foreground = PATH+"models/emulator_foreground_beam_meansub_21cmLSTM_3layer.h5"
 
 class predict_foreground(LoadableModel):
 	def __init__(self, parameters, model_path=model_save_path_foreground):
@@ -30,7 +30,7 @@ class predict_foreground(LoadableModel):
     			list of parameters to accept as input
        		model_path : str
 	 		The path to the saved 21cmLSTM model instance
-    			Default: '/projects/jodo2960/beam_weighted_foreground/models/emulator_foreground_beam_meansub_21cmLSTM_3layerBi.h5'
+    			Default: '/projects/jodo2960/beam_weighted_foreground/models/emulator_foreground_beam_meansub_21cmLSTM_3layer.h5'
        		'''
 		self.parameters = parameters
 		self.model_path = model_path
