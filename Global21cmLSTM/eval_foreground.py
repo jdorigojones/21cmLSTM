@@ -23,7 +23,7 @@ class evaluate_foreground():
                 raise KeyError("Unexpected keyword argument in evaluate()")
 
         # Default model path
-        default_model_path = f"/projects/jodo2960/beam_weighted_foreground/models/emulator_foreground_beam_meansub_21cmLSTM_3layerBi.h5"
+        default_model_path = f"/projects/jodo2960/beam_weighted_foreground/models/emulator_foreground_beam_meansub_21cmLSTM_3layer.h5"
         model_path = kwargs.pop('model_path', default_model_path)
                 
         # Load normalization data from the same directory as the model
@@ -58,7 +58,7 @@ class evaluate_foreground():
             x = proc_params_format[:,:,i]
             proc_params[:,:,i] = (x-self.train_mins[i])/(self.train_maxs[i]-self.train_mins[i])
             
-        result = self.model.predict(proc_params)#, training=False).numpy() # evaluate trained instance of 21cmLSTM with processed parameters
+        result = self.model(proc_params)#, training=False).numpy() # evaluate trained instance of 21cmLSTM with processed parameters
         emulated_spectra = result.copy()
         emulated_spectra = (result*(self.train_maxs[-1]-self.train_mins[-1]))+self.train_mins[-1] # unpreprocess (i.e., denormalize) signals
         emulated_spectra = np.squeeze(emulated_spectra, axis=2)
