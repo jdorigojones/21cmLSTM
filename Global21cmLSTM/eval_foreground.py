@@ -38,7 +38,7 @@ class evaluate_foreground():
         
         self.model = kwargs.pop('model', None)
         if self.model is None:
-            self.model = keras.models.load_model(model_path,compile=False)
+            self.model = torch.load(model_path, weights_only=False) #self.model = keras.models.load_model(model_path,compile=False)
             self.model.to(device)
 
     def __call__(self, parameters):
