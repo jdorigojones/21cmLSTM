@@ -6,18 +6,18 @@
 
 import numpy as np
 import tensorflow as tf
-import torch
-import gc
+#import torch
+#import gc
 import os
 from tensorflow import keras
 from tensorflow.keras import backend as K
-import Global21cmLSTM as Global21cmLSTM
-import Global21cmLSTM.preprocess_foreground as pp
-from Global21cmLSTM import __path__
+#import Global21cmLSTM as Global21cmLSTM
+#import Global21cmLSTM.preprocess_foreground as pp
+#from Global21cmLSTM import __path__
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-print(device)
-torch.set_default_dtype(torch.float64)
+#device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+#print(device)
+#torch.set_default_dtype(torch.float64)
 
 #PATH = f"{os.environ.get('HOME')}/.Global21cmLSTM/"
 
@@ -30,17 +30,21 @@ class evaluate_foreground():
         # Default model path
         default_model_path = f"/projects/jodo2960/beam_weighted_foreground/models/emulator_foreground_beam_meansub_21cmLSTM_3layer.h5"
         model_path = kwargs.pop('model_path', default_model_path)
-                
+
         # Load normalization data from the same directory as the model
         model_dir = os.path.dirname(model_path) + '/'
         self.train_mins = np.load(model_dir + 'train_mins_foreground_beam_meansub_LSTM.npy')
         self.train_maxs = np.load(model_dir + 'train_maxs_foreground_beam_meansub_LSTM.npy')
-        
+
         self.model = kwargs.pop('model', None)
         if self.model is None:
-            self.model = torch.load(model_path, weights_only=False) #self.model = keras.models.load_model(model_path,compile=False)
-            self.model.to(device)
-
+            self.model = keras.models.load_model(model_path,compile=False)
+            self.model.trainable = False
+            # Warm up the model (first call is slow)
+            dummy_params = np.zeros((1, 18))
+            _ = self(dummy_params)
+            print("Model loaded and warmed up!")
+            
     def __call__(self, parameters):
         if len(np.shape(parameters)) == 1:
             parameters = np.expand_dims(parameters, axis=0) # if doing one signal at a time
@@ -63,15 +67,9 @@ class evaluate_foreground():
         for i in range(p):
             x = proc_params_format[:,:,i]
             proc_params[:,:,i] = (x-self.train_mins[i])/(self.train_maxs[i]-self.train_mins[i])
-        proc_params_input = torch.from_numpy(proc_params)
-        proc_params = 0
-        parameters = 0
-        proc_params_input = proc_params_input.to(device)
 
-        self.model.eval()
-        with torch.no_grad():
-            result = self.model(proc_params_input)
-        result = result.cpu().detach().numpy() #result = self.model(proc_params)#, training=False).numpy() # evaluate trained instance of 21cmLSTM with processed parameters
+        parameters = 0
+        result = self.model(proc_params, training=False).numpy() # evaluate trained instance of 21cmLSTM with processed parameters
         emulated_spectra = result.copy()
         emulated_spectra = (result*(self.train_maxs[-1]-self.train_mins[-1]))+self.train_mins[-1] # unpreprocess (i.e., denormalize) signals
         emulated_spectra = np.squeeze(emulated_spectra, axis=2)
