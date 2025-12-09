@@ -39,7 +39,7 @@ f.close()
 
 #PATH = f"{os.environ.get('HOME')}/.Global21cmLSTM/"
 PATH = '/projects/jodo2960/beam_weighted_foreground/'
-model_save_path = PATH+"models/emulator_foreground_beam_10regions_meansub_21cmLSTM_3layer.pth"
+model_save_path = PATH+"models/emulator_foreground_beam_10regions_meansub_21cmLSTM_3layer.h5"
 train_mins_foreground_beam = np.load(PATH+"models/train_mins_foreground_beam_meansub_10regions.npy")
 train_maxs_foreground_beam = np.load(PATH+"models/train_maxs_foreground_beam_meansub_10regions.npy")
 
