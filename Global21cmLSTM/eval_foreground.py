@@ -34,7 +34,7 @@ class evaluate_foreground():
         # Load normalization data from the same directory as the model
         model_dir = os.path.dirname(model_path) + '/'
         self.train_mins = np.load(model_dir + 'train_mins_foreground_beam_meansub_10regions_LSTM.npy')
-        self.train_maxs = np.load(model_dir + 'train_mins_foreground_beam_meansub_10regions_LSTM.npy')
+        self.train_maxs = np.load(model_dir + 'train_maxs_foreground_beam_meansub_10regions_LSTM.npy')
 
         self.model = kwargs.pop('model', None)
         if self.model is None:
