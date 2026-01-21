@@ -28,21 +28,21 @@ class evaluate_foreground():
                 raise KeyError("Unexpected keyword argument in evaluate()")
 
         # Default model path
-        default_model_path = f"/projects/jodo2960/beam_weighted_foreground/models/emulator_foreground_beam_10regions_meansub_21cmLSTM_3layer_5to25MHz.h5" #emulator_foreground_beam_meansub_21cmLSTM_3layer.h5
+        default_model_path = f"/projects/jodo2960/beam_weighted_foreground/models/emulator_foreground_beam_meansub_21cmLSTM_3layer.h5" #emulator_foreground_beam_10regions_meansub_21cmLSTM_3layer_5to25MHz.h5
         model_path = kwargs.pop('model_path', default_model_path)
 
         # Load normalization data from the same directory as the model
         model_dir = os.path.dirname(model_path) + '/'
-        self.train_mins = np.load(model_dir + 'train_mins_foreground_beam_meansub_10regions_LSTM.npy') #train_mins_foreground_beam_meansub_LSTM.npy
-        self.train_maxs = np.load(model_dir + 'train_maxs_foreground_beam_meansub_10regions_LSTM.npy')
-        self.train_mins[-2]=5/25
+        self.train_mins = np.load(model_dir + 'train_mins_foreground_beam_meansub_LSTM.npy') #train_mins_foreground_beam_meansub_10regions_LSTM.npy
+        self.train_maxs = np.load(model_dir + 'train_maxs_foreground_beam_meansub_LSTM.npy')
+        #self.train_mins[-2]=5/25
 
         self.model = kwargs.pop('model', None)
         if self.model is None:
             self.model = keras.models.load_model(model_path,compile=False)
             self.model.trainable = False
             # Warm up the model (first call is slow)
-            dummy_params = np.zeros((1, 33)) #np.zeros((1, 18))
+            dummy_params = np.zeros((1, 18)) #np.zeros((1, 33))
             _ = self(dummy_params)
             print("Model loaded and warmed up!")
             
@@ -50,7 +50,7 @@ class evaluate_foreground():
         if len(np.shape(parameters)) == 1:
             parameters = np.expand_dims(parameters, axis=0) # if doing one signal at a time
             
-        nu_list = np.linspace(5,25,80) #np.linspace(5,50,180)    np.linspace(6,50,176)
+        nu_list = np.linspace(6,50,176) #np.linspace(5,50,180)  np.linspace(5,25,80)
         vr = 1420.405751
         z_list = (vr/nu_list) - 1
         nu_list_norm = nu_list/np.max(nu_list) # list to be Min-Max normalized later
@@ -62,8 +62,8 @@ class evaluate_foreground():
         
         for i in range(N_proc):
             for j in range(n):
-                proc_params_format[i, j, 0:33] = parameters[i,:]
-                proc_params_format[i, j, 33] = nu_list_norm[j]
+                proc_params_format[i, j, 0:18] = parameters[i,:]
+                proc_params_format[i, j, 18] = nu_list_norm[j]
         
         for i in range(p):
             x = proc_params_format[:,:,i]
