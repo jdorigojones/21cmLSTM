@@ -23,7 +23,8 @@ torch.set_default_dtype(torch.float64)
 
 #PATH = f"{os.environ.get('AUX_DIR', os.environ.get('HOME'))}/.Global21cmLSTM/"
 PATH = '/projects/jodo2960/beam_weighted_foreground/'
-nu_list = np.linspace(5,50,180)
+#nu_list = np.linspace(5,50,180)
+nu_list = np.linspace(5,50,90)
 #nu_list = np.linspace(6,50,176)
 #nu_list = np.linspace(5,25,80)
 vr = 1420.405751 # rest frequency of 21 cm line in MHz
@@ -31,7 +32,8 @@ z_list = (vr/nu_list) - 1
 #z_list = np.linspace(27.40811504, 235.73429196, 176)
 #with h5py.File(PATH + 'bw_training_set_500k_split_meansub.h5', "r") as f:
 #with h5py.File(PATH + 'BWFG_Fatima_TS_490k_10region_split_meansub.h5', "r") as f:
-with h5py.File(PATH + 'BWFG_Fatima_TS_490k_4region_full_variation_no_curvature_split_meansub.h5', "r") as f:
+#with h5py.File(PATH + 'BWFG_Fatima_TS_490k_4region_full_variation_no_curvature_split_meansub.h5', "r") as f:
+with h5py.File(PATH + 'BWFG_TS_490k_10LSTs_full_variation_4regions_no_curvature_split_meansub_LST1.h5', "r") as f:
     print("Keys: %s" % f.keys())
     par_train = np.asarray(f['par_train'])[()]
     par_val = np.asarray(f['par_val'])[()]
@@ -47,9 +49,9 @@ f.close()
 
 #PATH = f"{os.environ.get('HOME')}/.Global21cmLSTM/"
 PATH = '/projects/jodo2960/beam_weighted_foreground/'
-model_save_path = PATH+"models/emulator_foreground_beam_4regions_spectralindex_meansub_21cmLSTM_3layer.h5"
-train_mins_foreground_beam = np.load(PATH+"models/train_mins_foreground_beam_meansub_4regions_spectralindex.npy")
-train_maxs_foreground_beam = np.load(PATH+"models/train_maxs_foreground_beam_meansub_4regions_spectralindex.npy")
+model_save_path = PATH+"models/emulator_foreground_beam_4regions_spectralindex_meansub_LST1_21cmLSTM_3layer.h5"
+train_mins_foreground_beam = np.load(PATH+"models/train_mins_foreground_beam_meansub_4regions_spectralindex_LST1.npy")
+train_maxs_foreground_beam = np.load(PATH+"models/train_maxs_foreground_beam_meansub_4regions_spectralindex_LST1.npy")
 #model_save_path = PATH+"models/emulator_foreground_beam_meansub_21cmLSTM_3layer.h5"
 #train_mins_foreground_beam = np.load(PATH+"models/train_mins_foreground_beam_meansub.npy")
 #train_maxs_foreground_beam = np.load(PATH+"models/train_maxs_foreground_beam_meansub.npy")
@@ -257,7 +259,7 @@ class Emulate:
                            r'L', r'$\epsilon_{top}$', r'$\epsilon_{bottom}$'] 
 
         self.emulator = model(self.spectrum_train.shape[-1], self.par_train.shape[-1]+1, 1,
-                              activation_func, name="emulator_foreground_beam_4regions_spectralindex_meansub_21cmLSTM_3layer") #emulator_foreground_beam_10regions_meansub_21cmLSTM_3layer # emulator_foreground_beam_meansub_21cmLSTM_3layer
+                              activation_func, name="emulator_foreground_beam_4regions_spectralindex_meansub_LST1_21cmLSTM_3layer") #emulator_foreground_beam_10regions_meansub_21cmLSTM_3layer # emulator_foreground_beam_meansub_21cmLSTM_3layer
 
         self.train_mins = train_mins_foreground_beam
         self.train_maxs = train_maxs_foreground_beam
@@ -270,7 +272,7 @@ class Emulate:
         self.redshifts = redshifts
         self.frequencies = frequencies
 
-    def load_model(self, model_path=PATH+"models/emulator_foreground_beam_4regions_spectralindex_meansub_21cmLSTM_3layer.h5"): #emulator_foreground_beam_10regions_meansub_21cmLSTM_3layer #emulator_foreground_beam_meansub_21cmLSTM_3layer
+    def load_model(self, model_path=PATH+"models/emulator_foreground_beam_4regions_spectralindex_meansub_LST1_21cmLSTM_3layer.h5"): #emulator_foreground_beam_10regions_meansub_21cmLSTM_3layer #emulator_foreground_beam_meansub_21cmLSTM_3layer
         """
         Load a saved model instance of 21cmLSTM trained on the beam-weighted foreground spectra data set.
 
@@ -328,7 +330,7 @@ class Emulate:
         train_loss = hist.history["loss"]
         val_loss = hist.history["val_loss"]
 
-        self.emulator.save(PATH+'models/emulator_foreground_beam_4regions_spectralindex_meansub_21cmLSTM_3layer.h5') # save the entire model in HDF5 format; emulator_foreground_beam_meansub_21cmLSTM_3layer; emulator_foreground_beam_10regions_meansub_21cmLSTM_3layer
+        self.emulator.save(PATH+'models/emulator_foreground_beam_4regions_spectralindex_meansub_LST1_21cmLSTM_3layer.h5') # save the entire model in HDF5 format; emulator_foreground_beam_meansub_21cmLSTM_3layer; emulator_foreground_beam_10regions_meansub_21cmLSTM_3layer
 
         return train_loss, val_loss
 
