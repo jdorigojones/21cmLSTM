@@ -33,7 +33,7 @@ def preproc_params(unproc_params: np.ndarray, train_params: np.ndarray) -> np.nd
     if len(np.shape(unproc_params)) == 1:
         unproc_params = np.expand_dims(unproc_params, axis=0) # if doing one spectrum at a time
         
-    nu_list = np.linspace(5,50,180)#np.linspace(5,25,80) np.linspace(6,50,176)
+    nu_list = np.linspace(5,50,90)#np.linspace(5,25,80) np.linspace(6,50,176) np.linspace(5,50,180)
     vr = 1420.405751
     z_list = (vr/nu_list) - 1
     nu_list_norm = nu_list/np.max(nu_list) # frequency list to be Min-Max normalized
