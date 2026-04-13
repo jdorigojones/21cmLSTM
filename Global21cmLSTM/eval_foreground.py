@@ -50,7 +50,7 @@ class evaluate_foreground():
         if len(np.shape(parameters)) == 1:
             parameters = np.expand_dims(parameters, axis=0) # if doing one signal at a time
             
-        nu_list = np.linspace(5,50,90)#np.linspace(5,25,80) np.linspace(6,50,176) np.linspace(5,50,180)
+        nu_list = np.linspace(5,50,180)#np.linspace(5,25,80) np.linspace(6,50,176) np.linspace(5,50,180)
         vr = 1420.405751
         z_list = (vr/nu_list) - 1
         nu_list_norm = nu_list/np.max(nu_list) # list to be Min-Max normalized later
