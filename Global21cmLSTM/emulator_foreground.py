@@ -23,8 +23,8 @@ torch.set_default_dtype(torch.float64)
 
 #PATH = f"{os.environ.get('AUX_DIR', os.environ.get('HOME'))}/.Global21cmLSTM/"
 PATH = '/projects/jodo2960/beam_weighted_foreground/'
-#nu_list = np.linspace(5,50,180)
-nu_list = np.linspace(5,50,90)
+nu_list = np.linspace(5,50,180)
+#nu_list = np.linspace(5,50,90)
 #nu_list = np.linspace(6,50,176)
 #nu_list = np.linspace(5,25,80)
 vr = 1420.405751 # rest frequency of 21 cm line in MHz
