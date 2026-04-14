@@ -28,13 +28,13 @@ class evaluate_foreground():
                 raise KeyError("Unexpected keyword argument in evaluate()")
 
         # Default model path
-        default_model_path = f"/projects/jodo2960/beam_weighted_foreground/models/emulator_foreground_beam_4regions_spectralindex_meansub_full_LST1_21cmLSTM_3layer.h5" #emulator_foreground_beam_10regions_meansub_21cmLSTM_3layer #emulator_foreground_beam_meansub_21cmLSTM_3layer
+        default_model_path = f"/projects/jodo2960/beam_weighted_foreground/models/emulator_foreground_beam_4regions_spectralindex_meansub_full_LST3_21cmLSTM_3layer.h5" #emulator_foreground_beam_10regions_meansub_21cmLSTM_3layer #emulator_foreground_beam_meansub_21cmLSTM_3layer
         model_path = kwargs.pop('model_path', default_model_path)
 
         # Load normalization data from the same directory as the model
         model_dir = os.path.dirname(model_path) + '/'
-        self.train_mins = np.load(model_dir + 'train_mins_foreground_beam_meansub_4regions_spectralindex_full_LST1_LSTM.npy') #train_mins_foreground_beam_meansub_10regions_LSTM.npy #train_mins_foreground_beam_meansub_LSTM
-        self.train_maxs = np.load(model_dir + 'train_maxs_foreground_beam_meansub_4regions_spectralindex_full_LST1_LSTM.npy')
+        self.train_mins = np.load(model_dir + 'train_mins_foreground_beam_meansub_4regions_spectralindex_full_LST3_LSTM.npy') #train_mins_foreground_beam_meansub_10regions_LSTM.npy #train_mins_foreground_beam_meansub_LSTM
+        self.train_maxs = np.load(model_dir + 'train_maxs_foreground_beam_meansub_4regions_spectralindex_full_LST3_LSTM.npy')
         #self.train_mins[-2]=5/25
 
         self.model = kwargs.pop('model', None)
