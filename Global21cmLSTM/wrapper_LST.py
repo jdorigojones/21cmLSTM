@@ -10,7 +10,11 @@ import os
 import numpy as np
 from pylinex import LoadableModel
 import Global21cmLSTM as Global21cmLSTM
-from Global21cmLSTM.eval_foreground import evaluate_foreground
+from Global21cmLSTM.eval_foreground_LST1 import evaluate_foreground
+from Global21cmLSTM.eval_foreground_LST2 import evaluate_foreground
+from Global21cmLSTM.eval_foreground_LST3 import evaluate_foreground
+from Global21cmLSTM.eval_foreground_LST4 import evaluate_foreground
+from Global21cmLSTM.eval_foreground_LST5 import evaluate_foreground
 
 try:
 	# this runs with no issues in python 2 but raises error in python 3
@@ -21,10 +25,14 @@ except:
 
 #PATH = f"{os.environ.get('AUX_DIR', os.environ.get('HOME'))}/.Global21cmLSTM/"
 PATH = '/projects/jodo2960/beam_weighted_foreground/'
-model_save_path_foreground = PATH+"models/emulator_foreground_beam_4regions_spectralindex_meansub_full_LST1_21cmLSTM_3layer.h5" #emulator_foreground_beam_10regions_meansub_21cmLSTM_3layer #emulator_foreground_beam_meansub_21cmLSTM_3layer
+model_save_path_foreground1 = PATH+"models/emulator_foreground_beam_4regions_spectralindex_meansub_full_LST1_21cmLSTM_3layer.h5" #emulator_foreground_beam_10regions_meansub_21cmLSTM_3layer #emulator_foreground_beam_meansub_21cmLSTM_3layer
+model_save_path_foreground2 = PATH+"models/emulator_foreground_beam_4regions_spectralindex_meansub_full_LST2_21cmLSTM_3layer.h5" #emulator_foreground_beam_10regions_meansub_21cmLSTM_3layer #emulator_foreground_beam_meansub_21cmLSTM_3layer
+model_save_path_foreground3 = PATH+"models/emulator_foreground_beam_4regions_spectralindex_meansub_full_LST3_21cmLSTM_3layer.h5" #emulator_foreground_beam_10regions_meansub_21cmLSTM_3layer #emulator_foreground_beam_meansub_21cmLSTM_3layer
+model_save_path_foreground4 = PATH+"models/emulator_foreground_beam_4regions_spectralindex_meansub_full_LST4_21cmLSTM_3layer.h5" #emulator_foreground_beam_10regions_meansub_21cmLSTM_3layer #emulator_foreground_beam_meansub_21cmLSTM_3layer
+model_save_path_foreground5 = PATH+"models/emulator_foreground_beam_4regions_spectralindex_meansub_full_LST5_21cmLSTM_3layer.h5" #emulator_foreground_beam_10regions_meansub_21cmLSTM_3layer #emulator_foreground_beam_meansub_21cmLSTM_3layer
 
-class predict_foreground(LoadableModel):
-	def __init__(self, parameters, model_path=model_save_path_foreground):
+class predict_foreground1(LoadableModel):
+	def __init__(self, parameters, model_path=model_save_path_foreground1):
 		'''
   		parameters: np.ndarray
     			list of parameters to accept as input
@@ -53,7 +61,7 @@ class predict_foreground(LoadableModel):
 	@property
 	def neural_network_predictor(self):
 		if not hasattr(self, '_neural_network_predictor'):
-			self._neural_network_predictor = evaluate_foreground(model_path=self.model_path)
+			self._neural_network_predictor = evaluate_foreground1(model_path=self.model_path)
 		return self._neural_network_predictor
 	
 	def __call__(self, parameters):
