@@ -10,11 +10,11 @@ import os
 import numpy as np
 from pylinex import LoadableModel
 import Global21cmLSTM as Global21cmLSTM
-from Global21cmLSTM.eval_foreground_LST1 import evaluate_foreground
-from Global21cmLSTM.eval_foreground_LST2 import evaluate_foreground
-from Global21cmLSTM.eval_foreground_LST3 import evaluate_foreground
-from Global21cmLSTM.eval_foreground_LST4 import evaluate_foreground
-from Global21cmLSTM.eval_foreground_LST5 import evaluate_foreground
+from Global21cmLSTM.eval_foreground_LST import evaluate_foreground1
+from Global21cmLSTM.eval_foreground_LST import evaluate_foreground2
+from Global21cmLSTM.eval_foreground_LST import evaluate_foreground3
+from Global21cmLSTM.eval_foreground_LST import evaluate_foreground4
+from Global21cmLSTM.eval_foreground_LST import evaluate_foreground5
 
 try:
 	# this runs with no issues in python 2 but raises error in python 3
@@ -62,6 +62,170 @@ class predict_foreground1(LoadableModel):
 	def neural_network_predictor(self):
 		if not hasattr(self, '_neural_network_predictor'):
 			self._neural_network_predictor = evaluate_foreground1(model_path=self.model_path)
+		return self._neural_network_predictor
+	
+	def __call__(self, parameters):
+		'''
+  		parameters: np.ndarray
+    			list of parameters to accept as input
+       		'''
+		signal = self.neural_network_predictor(parameters)
+		return signal
+
+class predict_foreground2(LoadableModel):
+	def __init__(self, parameters, model_path=model_save_path_foreground2):
+		'''
+  		parameters: np.ndarray
+    			list of parameters to accept as input
+       		model_path : str
+	 		The path to the saved 21cmLSTM model instance
+    			Default: '/projects/jodo2960/beam_weighted_foreground/models/emulator_foreground_beam_4regions_spectralindex_meansub_full_LST2_21cmLSTM_3layer.h5'
+       		'''
+		self.parameters = parameters
+		self.model_path = model_path
+	
+	@property
+	def parameters(self):
+		"""
+  		Property storing an array of parameters for this model
+    		"""
+		return self._parameters
+	
+	@parameters.setter
+	def parameters(self, value):
+		"""
+  		Setter for the array of parameters for this model
+    		value: array of parameters to give to the evaluate_on_foreground.__call__() function
+      		"""
+		self._parameters = [element for element in value]
+	
+	@property
+	def neural_network_predictor(self):
+		if not hasattr(self, '_neural_network_predictor'):
+			self._neural_network_predictor = evaluate_foreground2(model_path=self.model_path)
+		return self._neural_network_predictor
+	
+	def __call__(self, parameters):
+		'''
+  		parameters: np.ndarray
+    			list of parameters to accept as input
+       		'''
+		signal = self.neural_network_predictor(parameters)
+		return signal
+
+class predict_foreground3(LoadableModel):
+	def __init__(self, parameters, model_path=model_save_path_foreground3):
+		'''
+  		parameters: np.ndarray
+    			list of parameters to accept as input
+       		model_path : str
+	 		The path to the saved 21cmLSTM model instance
+    			Default: '/projects/jodo2960/beam_weighted_foreground/models/emulator_foreground_beam_4regions_spectralindex_meansub_full_LST3_21cmLSTM_3layer.h5'
+       		'''
+		self.parameters = parameters
+		self.model_path = model_path
+	
+	@property
+	def parameters(self):
+		"""
+  		Property storing an array of parameters for this model
+    		"""
+		return self._parameters
+	
+	@parameters.setter
+	def parameters(self, value):
+		"""
+  		Setter for the array of parameters for this model
+    		value: array of parameters to give to the evaluate_on_foreground.__call__() function
+      		"""
+		self._parameters = [element for element in value]
+	
+	@property
+	def neural_network_predictor(self):
+		if not hasattr(self, '_neural_network_predictor'):
+			self._neural_network_predictor = evaluate_foreground3(model_path=self.model_path)
+		return self._neural_network_predictor
+	
+	def __call__(self, parameters):
+		'''
+  		parameters: np.ndarray
+    			list of parameters to accept as input
+       		'''
+		signal = self.neural_network_predictor(parameters)
+		return signal
+
+class predict_foreground4(LoadableModel):
+	def __init__(self, parameters, model_path=model_save_path_foreground4):
+		'''
+  		parameters: np.ndarray
+    			list of parameters to accept as input
+       		model_path : str
+	 		The path to the saved 21cmLSTM model instance
+    			Default: '/projects/jodo2960/beam_weighted_foreground/models/emulator_foreground_beam_4regions_spectralindex_meansub_full_LST4_21cmLSTM_3layer.h5'
+       		'''
+		self.parameters = parameters
+		self.model_path = model_path
+	
+	@property
+	def parameters(self):
+		"""
+  		Property storing an array of parameters for this model
+    		"""
+		return self._parameters
+	
+	@parameters.setter
+	def parameters(self, value):
+		"""
+  		Setter for the array of parameters for this model
+    		value: array of parameters to give to the evaluate_on_foreground.__call__() function
+      		"""
+		self._parameters = [element for element in value]
+	
+	@property
+	def neural_network_predictor(self):
+		if not hasattr(self, '_neural_network_predictor'):
+			self._neural_network_predictor = evaluate_foreground4(model_path=self.model_path)
+		return self._neural_network_predictor
+	
+	def __call__(self, parameters):
+		'''
+  		parameters: np.ndarray
+    			list of parameters to accept as input
+       		'''
+		signal = self.neural_network_predictor(parameters)
+		return signal
+
+class predict_foreground5(LoadableModel):
+	def __init__(self, parameters, model_path=model_save_path_foreground5):
+		'''
+  		parameters: np.ndarray
+    			list of parameters to accept as input
+       		model_path : str
+	 		The path to the saved 21cmLSTM model instance
+    			Default: '/projects/jodo2960/beam_weighted_foreground/models/emulator_foreground_beam_4regions_spectralindex_meansub_full_LST5_21cmLSTM_3layer.h5'
+       		'''
+		self.parameters = parameters
+		self.model_path = model_path
+	
+	@property
+	def parameters(self):
+		"""
+  		Property storing an array of parameters for this model
+    		"""
+		return self._parameters
+	
+	@parameters.setter
+	def parameters(self, value):
+		"""
+  		Setter for the array of parameters for this model
+    		value: array of parameters to give to the evaluate_on_foreground.__call__() function
+      		"""
+		self._parameters = [element for element in value]
+	
+	@property
+	def neural_network_predictor(self):
+		if not hasattr(self, '_neural_network_predictor'):
+			self._neural_network_predictor = evaluate_foreground5(model_path=self.model_path)
 		return self._neural_network_predictor
 	
 	def __call__(self, parameters):
