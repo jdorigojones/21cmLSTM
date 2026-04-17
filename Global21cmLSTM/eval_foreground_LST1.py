@@ -21,7 +21,7 @@ from tensorflow.keras import backend as K
 
 #PATH = f"{os.environ.get('HOME')}/.Global21cmLSTM/"
 
-class evaluate_foreground():
+class evaluate_foreground1():
     def __init__(self, **kwargs):
         for key, values in kwargs.items():
             if key not in set(['model_path', 'model']):
